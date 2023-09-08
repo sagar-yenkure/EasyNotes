@@ -1,0 +1,31 @@
+1=>
+ in "models" folder we saved the scheama of User and Notes.
+
+2=>
+ in index folder we connecting to mongo with the help of connectTOmongo function witch is exported by "DB" file,
+ using the end points for auth and notes by importing them from their respective folder.
+ 
+3=>
+ in "Routes" folder we written the logic of end points of authentication and notes.
+
+4=> 
+ in "auth" file we cheaking the requested user's name , email, password is valid or not
+ ,if not then give error ,if valid then craete a user un mongo .
+
+ for security we created a hash password using bcrypt..
+
+5=>
+  in "auth" we also created a "Getuser" route to get user information by their jwt token so we created a middle ware .
+   middleware means a function which will be called when the route is geting launch,
+   in middleware "fetchuser file " is function which is conveting the jwt token into id which is their alredy present.
+   after getting id of user we serching the id in db except the password.then sending as responce.
+
+6=>
+ in "notes"we have created a "Getnotes" routes which takes jwt token in head-token and converting into data of id,then serched for notes where the foreign is key (data of id) userid .
+
+ in "notes"we have created a "Addnote" route where it takes jwt token convert into id ,then title,decr,tag and the id is saved in db.
+
+7=> 
+  in notes we create a "Update note" route where we craeted newnNote obj which has value req.body, 
+  here we also running fetch user middleware,  route takes the id of note and serched in db if not found then give error ,then cheaking the jwt id is macthed with notes user id  if not then give error, if matched then updating the note with newnNote obj.
+
