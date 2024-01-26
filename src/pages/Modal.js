@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState, useContext } from 'react'
 import Notecontext from "../context/notes/NoteContext"
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Modal(props) {
     const context = useContext(Notecontext);
     const { editnote } = context;
     const ref = useRef(null)
+    const [date, setdate] = useState(Date.now())
     const [note, setnote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
     const { visi, close, set  } = props; //getting the value of title,dec and tag form func
 
@@ -27,13 +30,13 @@ export default function Modal(props) {
 
     return (
         <>
-            <div className={` section border-2 absolute top-[4rem] left-[30rem] ${visi} border-gray-200 p-1 rounded-xl bg-[#D0F0C0] `} >
+            <div className={` section border-2 absolute top-[10rem] z-10 left-[5rem] md:left-[25rem] ${visi} border-gray-200 p-1 rounded-xl bg-[#D0F0C0] `} >
                 <h1 className='text-lg font-bold m-2'>Edit the note</h1>
 
                 {/* the editing adding form */}
 
                 <div className="form">
-                    <form className="w-[35rem] p-3" >
+                    <form className="w-full p-3" >
                         <div className="flex flex-col items-center border-b border-teal-500 space-y-2">
                             {/* note area */}
 

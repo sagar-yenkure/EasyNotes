@@ -10,7 +10,7 @@ export default function Allnote(props) {
 
  
   return (
-    <div className='p-3 flex justify-between rounded-lg bg-[#D0F0C0] m-2' >
+    <div className=' flex justify-between rounded-lg bg-[#D0F0C0] m-2' >
       <div className="  p-3  flex flex-col flex-wrap" >
         <h1 className='font-bold'>Title : {Title}</h1> 
         <p className='font-bold'>Description : {Desc} </p>
@@ -20,10 +20,10 @@ export default function Allnote(props) {
       </div>
       <div className="btn flex flex-col space-y-5 m-2">
 
-      <button onClick={()=>{deletnote(id)}} className='w-5 btn' >
+      <button title='delete task' onClick={()=>{deletnote(id)}} className='w-5 btn' >
         <AiFillDelete />
       </button>
-      <button onClick={()=>{updatenote(Title, Desc, Tag,id)}}   className='w-5 btn'>
+      <button title='edit task' onClick={()=>{updatenote(Title, Desc, Tag,id)}}   className='w-5 btn'>
         <AiFillEdit/>
       </button>
       </div>

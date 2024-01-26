@@ -4,8 +4,8 @@ import { useState } from 'react'
 
 
 const NoteState = (props) => {
-        const Host = "http://localhost:5000"
-        const TOKEN = "localStorage.getItem('token')"
+        const Host = process.env.Host
+        const TOKEN = localStorage.getItem('token')
         const notesin = []
         const [notes, setnotes] = useState(notesin)
         const [isempty] = useState(true)
@@ -28,7 +28,7 @@ const NoteState = (props) => {
                 }
         }
         //!add a note
-        const addNote = async (title, description, tag) => {
+        const addNote = async (title, description, tag, date) => {
                 try {
                         //API call to add note
                         const respone = await fetch(`${Host}/api/notes/Addnotes`, {
@@ -37,20 +37,21 @@ const NoteState = (props) => {
                                         'content-type': 'application/json',
                                         'head-token': TOKEN
                                 },
-                                body: JSON.stringify({ title, description, tag })
+                                body: JSON.stringify({ title, description, tag, date })
                         });
                         const json = await respone.json()
-                        console.log(json)
+                        // console.log(json)
                         const note = {
                                 "_id": "",
                                 "title": title,
                                 "description": description,
-                                "tag": tag
+                                "tag": tag,
+                                "date": date
                         }
                         setnotes(notes.concat(note))
+
                 } catch (error) {
                         console.log("server issue with adding note in database")
-
 
                 }
                 // }
@@ -72,7 +73,7 @@ const NoteState = (props) => {
                                 },
                         });
                         const json = await respone.json()
-                        console.log(json)
+                        // console.log(json)
                 } catch (error) {
                         console.log("server issue in deleting note")
 
@@ -91,7 +92,7 @@ const NoteState = (props) => {
                                 body: JSON.stringify({ title, description, tag })
                         });
                         const json = await respone.json()
-                        console.log(json)
+                        // console.log(json)
 
                         //editing at client sever
                         let updatednote = JSON.parse(JSON.stringify(notes)) // created a deep copy of notes
@@ -113,11 +114,10 @@ const NoteState = (props) => {
         }
 
         return (
+
                 <NoteContext.Provider value={{ notes, setnotes, addNote, deletnote, editnote, getnotes, isempty }}>
                         {props.children}
                 </NoteContext.Provider>
         )
-
-
 }
 export default NoteState;
